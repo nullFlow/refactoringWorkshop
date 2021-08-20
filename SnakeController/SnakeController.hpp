@@ -5,6 +5,7 @@
 
 #include "IEventHandler.hpp"
 #include "SnakeInterface.hpp"
+#include <stdexcept>
 
 class Event;
 class IPort;
