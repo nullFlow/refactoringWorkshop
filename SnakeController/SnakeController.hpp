@@ -33,12 +33,29 @@ public:
     void receive(std::unique_ptr<Event> e) override;
 
 private:
+    void handleTimePassed(const TimeoutInd&);
+    void handleDirectionChange(const DirectionInd&);
+    void handleFoodPositionChange(const FoodInd& receivedFood);
+    void handleNewFood(const FoodResp& requestedFood);
+
     struct Segment
     {
         int x;
         int y;
         int ttl;
     };
+
+    Segment getNewHead() const;
+    bool doesCollideWithSnake(const Segment& newSegment) const;
+    bool doesCollideWithWall(const Segment& newSegment) const;
+    bool doesCollideWithFood(const Segment& newSegment) const;
+
+    void notifyAboutFailure();
+    void repaintTile(const Segment& position, Cell type);
+    void repaintTile(unsigned int x, unsigned int y, Cell type);
+
+    void cleanNotExistingSnakeSegments();
+
 
     IPort& m_displayPort;
     IPort& m_foodPort;
