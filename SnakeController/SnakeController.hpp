@@ -31,12 +31,17 @@ public:
     Controller& operator=(Controller const& p_rhs) = delete;
 
     void receive(std::unique_ptr<Event> e) override;
+    void pause();
+    void unpause();
 
 private:
     void handleTimePassed(const TimeoutInd&);
     void handleDirectionChange(const DirectionInd&);
     void handleFoodPositionChange(const FoodInd& receivedFood);
     void handleNewFood(const FoodResp& requestedFood);
+    void handlePause(const PauseInd& PauseInd);
+
+    bool isPaused = 0;
 
     struct Segment
     {
