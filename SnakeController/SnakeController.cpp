@@ -78,6 +78,7 @@ void Controller::sendPlaceNewFood(int x, int y)
     m_foodPosition = std::make_pair(x, y);
 
     DisplayInd placeNewFood;
+
     placeNewFood.x = x;
     placeNewFood.y = y;
     placeNewFood.value = Cell_FOOD;
@@ -191,7 +192,7 @@ void Controller::handleDirectionInd(std::unique_ptr<Event> e)
 
 void Controller::updateFoodPosition(int x, int y, std::function<void()> clearPolicy)
 {
-    if (isSegmentAtPosition(x, y)) {
+    if (isSegmentAtPosition(x, y) || isPositionOutsideMap(x,y)) {
         m_foodPort.send(std::make_unique<EventT<FoodReq>>());
         return;
     }
