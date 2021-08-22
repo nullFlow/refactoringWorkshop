@@ -31,8 +31,12 @@ public:
     Controller& operator=(Controller const& p_rhs) = delete;
 
     void receive(std::unique_ptr<Event> e) override;
+    Snake::Direction setDirection(char d);
+    bool isHead(int currX, int headX, int currY, int headY);
+    Snake::DisplayInd bindDisplayInd(DisplayInd ind, int segmentX, int segmentY, Snake::Cell state);
+    void packAndSend(IPort& port, int segmentX, int segmentY, Snake::Cell state);
 
-private:
+    private:
     struct Segment
     {
         int x;
